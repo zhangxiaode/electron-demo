@@ -1,0 +1,118 @@
+{
+  "name": "electron-demo",
+  "private": true,
+  "version": "1.0.0",
+  "main": "electron/main.js",
+  "author": {
+    "name": "shahua",
+    "email": "2279323443@qq.com"
+  },
+  "description": "electron_demo",
+  "scripts": {
+    "cdn": "gulp cdn",
+    "clean": "rm -rf dist/*",
+    "clean:electron": "rm -rf dist_electron/*",
+    "dev": "vite --mode dev",
+    "dev:test": "vite --mode test",
+    "dev:stage": "vite --mode stage",
+    "dev:pro": "vite --mode pro",
+    "build:dev": "npm run clean && vue-tsc --noEmit && cross-env CDN=test vite build --mode dev",
+    "build:test": "npm run clean && vue-tsc --noEmit && cross-env CDN=test vite build --mode test",
+    "build:stage": "npm run clean && vue-tsc --noEmit && cross-env CDN=test vite build --mode stage",
+    "build": "npm run clean && vue-tsc --noEmit && node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode pro",
+    "start": "vite | electron .",
+    "build:electron": "npm run clean && npm run clean:electron && ./node_modules/vite/bin/vite.js build --mode pro && electron-builder",
+    "build:win32": "electron-builder --win --x32",
+    "build:win64": "electron-builder --win --x64",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "shahua.first.app",
+    "productName": "ElectronDemo",
+    "copyright": "Copyright © 2023 shahua",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "win": {
+      "icon": "./build/electron-icon/icon.ico",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "./build/electron-icon/icon.icns"
+    },
+    "linux": {
+      "icon": "./build/electron-icon/icon.png",
+      "target": "AppImage"
+    },
+    "files": [
+      "./dist",
+      "./electron",
+      "!**/node_modules/**"
+    ],
+    "asar": false,
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./build/electron-icon/icon.ico",
+      "uninstallerIcon": "./build/electron-icon/icon.ico",
+      "installerHeaderIcon": "./build/electron-icon/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7",
+    "echarts": "^5.4.3",
+    "js-cookie": "^3.0.1",
+    "jsencrypt": "^3.3.2",
+    "naive-ui": "^2.34.3",
+    "pinia": "^2.1.7",
+    "vant": "^4.1.2",
+    "vue": "^3.2.25",
+    "vue-demi": "^0.14.5",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.3",
+    "@types/node": "^18.0.6",
+    "@vicons/ionicons5": "^0.12.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "gulp": "4.0.2",
+    "lodash": "^4.17.21",
+    "qiniu": "^7.1.3",
+    "query-string": "^8.1.0",
+    "sass": "^1.53.0",
+    "through2": "^2.0.3",
+    "typescript": "^4.5.4",
+    "vfonts": "^0.0.3",
+    "vite": "^2.9.9",
+    "vite-plugin-optimizer": "^1.4.2",
+    "vue-tsc": "^0.34.7"
+  }
+}
